@@ -79,7 +79,10 @@ class Card(db.Model):
 @app.route('/')
 def index():
     # todo, detect if user already logged in and redirect to /home if so
-    return render_template('login.html')
+    if current_user.is_authenticated(): # user already logged in
+        return redirect(url_for('home'))
+    else: #user not logged in yet
+        return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
